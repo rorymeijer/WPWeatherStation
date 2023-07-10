@@ -115,7 +115,7 @@ function private_weathergenerate_guid() {
 
 function private_weather_save_data( $data ) {
     global $wpdb;
-	var_dump($data);
+	//var_dump($data);
 	
     $table_name = $wpdb->prefix . 'private_weather_data';
 
@@ -123,17 +123,17 @@ function private_weather_save_data( $data ) {
     if ( $last_record && strtotime( $last_record->timestamp ) > strtotime( '-'.get_option( 'herhalen' ).' hour' ) ) {
         return; // Skip inserting a new record
     }
-	if(isset($data['Temperature'])){
+	if(is_array($data)){
 		$temperature = $data['Temperature']; 
 	}else{
     $temperature = $data->dashboard_data->Temperature;
 	}	
-	if(isset($data['Humidity'])){
+	if(is_array($data)){
 		$humidity = $data['Humidity']; 
 	}else{
     $humidity = $data->dashboard_data->Humidity;
 	}
-	if(isset($data['Weather'])){
+	if(is_array($data)){
 		$weather = $data['Weather']; 
 	}else{
     $weather = isset( $data->dashboard_data->Weather ) ? $data->dashboard_data->Weather->status : 'N/A';
